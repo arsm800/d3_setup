@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>D3 Setup</title>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="">
+    <script src="d3/d3.js"></script>
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <header>D3 Setup</header>
+    <script>
+      var dataset = [5, 10, 15, 20, 25];
+      d3.select("body")              /*Finds DOM element and hands off reference*/
+        .selectAll("p")             /*Selects all paragraphs in DOM.  Since none exist yet, it returns an empty selection.*/
+        .data(dataset)             /*Parses data values from data variable*/
+        .enter()                   /*Creates new, data-bound elements.  If there are more data values than corresponding DOM elements, then placeholder elements are created.*/
+        .append("p")            /*Appends p element to empty placeholder element and hands off referenece*/
+        /*.text("New Paragraph!");    Inserts text to newly created p tag*/
+        .text(function(d) {return d;});
+    </script>
+  </body>
+</html>
