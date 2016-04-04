@@ -6,18 +6,29 @@
     <link rel="shortcut icon" href="">
     <script src="d3/d3.js"></script>
     <script src="script.js"></script>
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
     <header>D3 Setup</header>
     <script>
       var dataset = [5, 10, 15, 20, 25];
       d3.select("body")              /*Finds DOM element and hands off reference*/
-        .selectAll("p")             /*Selects all paragraphs in DOM.  Since none exist yet, it returns an empty selection.*/
+        .selectAll("div")
+        // .selectAll("p")             /*Selects all paragraphs in DOM.  Since none exist yet, it returns an empty selection.*/
         .data(dataset)             /*Parses data values from data variable*/
         .enter()                   /*Creates new, data-bound elements.  If there are more data values than corresponding DOM elements, then placeholder elements are created.*/
-        .append("p")            /*Appends p element to empty placeholder element and hands off referenece*/
+        .append("div")
+        // .append("p")            /*Appends p element to empty placeholder element and hands off referenece*/
         /*.text("New Paragraph!");    Inserts text to newly created p tag*/
-        .text(function(d) {return d;});
+        // .text(function(d) {
+        //   return d;
+        // }) /*anonymous function where "d" corresponds to data set*/
+        // .style("color", "blue")
+        .attr("class", "bar")
+        .style("height", function(d) {
+          var barheight = d * 5;
+          return barheight + "px"
+        });
     </script>
   </body>
 </html>
