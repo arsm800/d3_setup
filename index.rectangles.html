@@ -26,8 +26,8 @@
         .enter()
         .append("rect")
         .attr({
-          x: function(d, i) {
-            return i * (w / dataset.length);
+          x: function(d, i) {                  //i represents the nth bar/data value of the set//
+            return i * (w / dataset.length);  //You are measuring the spacing fromleft side of svg//
             },
           y: function(d) {
             return h - d * 4;
@@ -40,6 +40,24 @@
             return "rgb(0, 0, " + (d * 10) + ")";   //This makes the taller bars bluer.//
           }
       });
+
+      svg.selectAll("text")
+        .data(dataset)
+        .enter()
+        .append("text")
+        .text(function(d) {
+          return d;
+        })
+        .attr("x", function(d, i) {
+          return i * (w / dataset.length) + (w / dataset.length - barpadding) / 2 - 2;
+        })
+        .attr("y", function(d) {
+          return h - (d * 4) + 14;
+        })
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "11px")
+        .attr("fill", "white")
+        .attr("text-anchor", "middle");
 
     </script>
   </body>
