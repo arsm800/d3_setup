@@ -26,12 +26,12 @@
     var padding = 50;
 
     var xScale = d3.scale.linear()
-                         .domain([0, d3.max(dataset, function(d) { return d[0];})])
-                         .range([padding, w - padding]);
+                         .domain([0, d3.max(dataset, function(d) { return d[0];})])  //Range of possible input data values.  Range should include all data points x coordinates.//
+                         .range([padding, w - padding]);  //Range of possible output values.  Should fit inside specified widith (w) of svg.//
 
     var yScale = d3.scale.linear()
-                         .domain([0, d3.max(dataset, function(d) { return d[1];})])
-                         .range([h - padding, padding]);
+                         .domain([0, d3.max(dataset, function(d) { return d[1];})])  //Range of possible input data values.  Range should include all data points y coordinates.//
+                         .range([h - padding, padding]);   //Range of possible output values.  Should fit inside specified height (h) of svg.//
 
     var svg = d3.select("body")
       .append("svg")
@@ -52,6 +52,7 @@
         return Math.sqrt(h- d[1]); //This makes circle area relative to its cy value.//
       });
 
+    //Create datapoint coordinate labels.//
     svg.selectAll("text")
       .data(dataset)
       .enter()
@@ -69,6 +70,13 @@
       .attr("font-size", "11px")
       .attr("fill", "red");
 
+    //Create x axis.//
+    var xAxis = d3.svg.axis()
+                      .scale(xScale)
+                      .orient("bottom");  //Specifies whether axis labels are above ("top") or below ("bottom") axis.//
+
+    svg.append("g")    //"g" refers to a group element, so we append a group element to svg and call the xAxis function defined above.  Group elements are invisible, but are used to group visible svg elements.//
+       .call(xAxis);
 
   </script>
 </body>
