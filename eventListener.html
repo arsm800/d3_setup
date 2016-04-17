@@ -9,6 +9,7 @@
   </head>
   <body>
     <header>D3 Setup</header>
+    <p>Click on this text to update the chart.</p>
     <script>
       var dataset = [5, 10, 13, 19, 21, 25, 22, 18, 15, 13, 11, 12, 15, 20, 18, 17, 16, 18, 23, 25];
 
@@ -63,6 +64,32 @@
         .attr("font-size", "11px")
         .attr("fill", "white")
         .attr("text-anchor", "middle");
+
+      d3.select("p").on("click", function() {
+        dataset = [11, 12, 15, 20, 18, 17, 16, 18, 23, 25, 5, 10, 13, 19, 21, 25, 22, 18, 15, 13];
+        svg.selectAll("rect")
+           .data(dataset)
+           .attr("y", function(d) {
+             return h - d * 10;
+           })
+           .attr("height", function(d) {
+             return d * 10;
+           })
+          .attr("fill", function(d) {
+            return "rgb(0, 0, " + (d * 10) + ")"
+          });
+        svg.selectAll("text")
+           .data(dataset)
+           .text(function(d) {
+             return d;
+           })
+           .attr("x", function(d, i) {
+             return xScale(i) + xScale.rangeBand() / 2;
+           })
+           .attr("y", function(d) {
+             return h - (d * 10) +14;
+           });
+      });
 
     </script>
   </body>
