@@ -24,15 +24,15 @@
       //Create ordinal x scale.//
       var xScale = d3.scale.ordinal()
                            .domain(d3.range(dataset.length))  //Sets scale domain (input) to length of data set.//
-                           .rangeRoundBands([0, w], 0.05);  //Sets scale range to w / dataset length with .05 space between each bar.//
+                           .rangeRoundBands([0, w], 0);  //Sets scale range to w / dataset length with .05 space between each bar.//
 
       svg.selectAll("rect")
         .data(dataset)
         .enter()
         .append("rect")
         .attr({
-          x: function(d, i) {                  //i represents the nth bar/data value of the set//
-            return i * (w / dataset.length);  //You are measuring the spacing from left side of svg//
+          x: function(d, i) {
+            return xScale(i);    //Rectangle location is now based on ordinal scale and not svg/padding.//
             },
           y: function(d) {
             return h - d * 10;  //d * 10 is a multiplier.  in order to make the bars taller and keep everything else in sync, I had to adjust the d multiplier on for rectangle height (line 37), and text y coordinate (line 55).//
