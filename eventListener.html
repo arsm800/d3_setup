@@ -27,6 +27,30 @@
                            .domain(d3.range(dataset.length))  //Sets scale domain (input) to length of data set.//
                            .rangeRoundBands([0, w], 0);  //Sets scale range to w / dataset length with .05 space between each bar.//
 
+      var sortBars = function() {
+        svg.selectAll("rect")
+        .sort(function(a, b) {      //D3 sort method re-orders elements based on bound data values.//
+          return d3.ascending(a, b);  //Comparator function compares a and b (all possible pairs in data array.//)
+        })
+        .transition()
+        .duration(1000)
+        .attr("x", function(d,i) {
+          return xScale(i);
+        });
+      };
+
+      var sortText = function() {
+        svg.selectAll("text")
+        .sort(function(a, b) {
+          return d3.ascending(a, b);
+        })
+        .transition()
+        .duration(1000)
+        .attr("x", function(d, i) {
+          return xScale(i) + xScale.rangeBand() / 2;  //Not exactly sure how this works.//
+        });
+      };
+
       svg.selectAll("rect")
         .data(dataset)
         .enter()
@@ -46,8 +70,9 @@
             return "rgb(0, 0, " + (d * 10) + ")";   //This makes the taller bars bluer.//
           }
         })
-        .on("click", function(d) {
-          console.log(d);
+        .on("click", function() {
+          sortBars();
+          sortText();
         })
         .on("mouseover", function() {      //Changes color of bar when mouse hovers over it.//
           d3.select(this)
@@ -55,6 +80,8 @@
         })
         .on("mouseout", function(d) {    //Changes color of bar back to original color after mouse leaves.//
           d3.select(this)
+          .transition()
+          .duration(100)
           .attr("fill", "rgb(0, 0, " + (d * 10) + ")");  //This is the same color as defined on original rect attribute.//
         });
 
