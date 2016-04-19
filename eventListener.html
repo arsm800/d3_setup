@@ -30,17 +30,20 @@
       var sortOrder = false;
 
       var sortBars = function() {
-        sortOrder = !sortOrder;
+        sortOrder = !sortOrder;    //Because the sortOrder variable is defined above as false, we change its value to true when we call the sortBars function.  This seems to happen after the .sort method below is run.//
         svg.selectAll("rect")
         .sort(function(a, b) {      //D3 sort method re-orders elements based on bound data values.//
-          if (sortOrder) {
+          if (sortOrder) {          //If sortOrder = true...//
             return d3.ascending(a, b);  //Comparator function compares a and b (all possible pairs in data array.//)
           }
-          else {
+          else {                          //If sortOrder is false...//
             return d3.descending(a, b);
           };
         })
         .transition()
+        .delay(function(d, i) {
+          return i * 50;
+        })
         .duration(1000)
         .attr("x", function(d,i) {
           return xScale(i);
