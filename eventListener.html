@@ -27,10 +27,18 @@
                            .domain(d3.range(dataset.length))  //Sets scale domain (input) to length of data set.//
                            .rangeRoundBands([0, w], 0);  //Sets scale range to w / dataset length with .05 space between each bar.//
 
+      var sortOrder = false;
+
       var sortBars = function() {
+        sortOrder = !sortOrder;
         svg.selectAll("rect")
         .sort(function(a, b) {      //D3 sort method re-orders elements based on bound data values.//
-          return d3.ascending(a, b);  //Comparator function compares a and b (all possible pairs in data array.//)
+          if (sortOrder) {
+            return d3.ascending(a, b);  //Comparator function compares a and b (all possible pairs in data array.//)
+          }
+          else {
+            return d3.descending(a, b);
+          };
         })
         .transition()
         .duration(1000)
@@ -39,10 +47,16 @@
         });
       };
 
-      var sortText = function() {
+      var sortText = function() {  //Just sorting the bars will not cause the text values to ascend with them.  Therefore, we define a separate function to sort text values.  Notice it is similar to the sortBars function except for the x attribute is the same as the append text function.//
+
         svg.selectAll("text")
         .sort(function(a, b) {
-          return d3.ascending(a, b);
+          if (sortOrder) {
+            return d3.ascending(a, b);
+          }
+          else {
+            return d3.descending(a, b);
+          };
         })
         .transition()
         .duration(1000)
