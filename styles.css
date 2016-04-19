@@ -23,6 +23,10 @@ header {
 }
 /*Because we have added a class of "axis" to an svg element, we can add words like "path," "line," and "text" after the intial class css selector.  Within each svg attribute is a slightly different terminology--eg. you cannot use "fill" in css.*/
 
-rect:hover {
+/*rect:hover {        This can also be accomplished with .mouseover and .mouseout js functions.
   fill: lime;
+}*/
+
+p {
+  font-family: helvetica;
 }

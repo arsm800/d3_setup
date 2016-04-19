@@ -48,6 +48,14 @@
         })
         .on("click", function(d) {
           console.log(d);
+        })
+        .on("mouseover", function() {      //Changes color of bar when mouse hovers over it.//
+          d3.select(this)
+          .attr("fill", "lime");
+        })
+        .on("mouseout", function(d) {    //Changes color of bar back to original color after mouse leaves.//
+          d3.select(this)
+          .attr("fill", "rgb(0, 0, " + (d * 10) + ")");  //This is the same color as defined on original rect attribute.//
         });
 
       svg.selectAll("text")
